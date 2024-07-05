@@ -1,0 +1,10 @@
+
+
+    <h2 th:text="'Optimized recipe execution'"></h2>
+    <h4 th:text="'Not optimized execution would take ' +  ${totalStepTime} + ' milliseconds'"></h4>
+    <h4><i th:text="'independant are steps executed in parallel:'"></i></h4>
+    <div id="polling" th:attr="hx-get='/events/recipeAsync/' + ${requestId} + '/' +${recipeId}"
+         hx-target="#pollingresult" hx-trigger="every 50ms">
+    </div>
+    <div id="pollingresult"></div>
+

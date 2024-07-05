@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create recipe</title>
+    <script src="/js/htmx.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            background-color: #f2f2f2;
+            padding: 20px;
+            text-align: center;
+            width: 100%;
+        }
+        .content {
+            display: flex;
+            width: 100%;
+        }
+        .steps {
+            width: 60%;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        .ingredients {
+            width: 20%;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .foodStorage {
+            width: 20%;
+            padding: 20px;
+            background-color: #d4ddf6;
+        }
+        .step {
+            margin-bottom: 10px;
+        }
+
+        .notStarted {
+            background-color: white;
+        }
+        .recipeStarted {
+            font-size: large;
+            font-weight: bold;
+            color: #a8a80e;
+        }
+
+        .recipeCompleted {
+            font-size: large;
+            font-weight: bold;
+            color: #22800c;
+        }
+        .started {
+            background-color: #f1f1ec;
+            color: #a8a80e;
+        }
+        .completed {
+            background-color: #e7f4e4;
+        }
+        .failed {
+            background-color: #fde2e2;
+        }
+        .independent {
+            background-color: #e7f4e4;
+        }
+        .dependent {
+            background-color: #fde2e2;
+        }
+        .icon {
+            width: 20px;
+            height: 20px;
+            vertical-align: middle;
+        }
+        h1, h2 {
+            margin-top: 0;
+        }
+        img {
+            width: 100%;
+        }
+        .independent { background-color: #e7f4e4; }
+        .dependent { background-color: #fde2e2; }
+        .icon { width: 20px; height: 20px; vertical-align: middle; }
+        .play-icon {
+            width: 30px;
+            height: 30px;
+            vertical-align: middle;
+            color: green;
+        }
+        .play-button {
+            text-decoration: none;
+            color: #000;
+            font-family: Arial, sans-serif;
+        }
+    </style>
+
+</head>
+<body>
+
+<div class="header">
+    <h1>Create recipe </h1>
+
+   <form action="/newrecipe" method="get">
+        <label for="recipeName">Recipe name: </label><input id="recipeName" name="recipeName"  type="text">
+        <button type="submit">Submit</button>
+    </form>
+
+
+</div>
+<div class="content">
+    <div id="stepsContent" class="steps">
+
+        <!--    <img src="spaghetti.jpg" alt="Classic Tomato Spaghetti" style="width:100%;">-->
+
+        <h2>Steps</h2>
+
+    </div>
+
+    <div class="ingredients">
+        <h2>Ingredients</h2>
+
+    </div>
+
+    <div class="foodStorage">
+        <h2>Food storage</h2>
+        <ul th:each="food: ${foodStorage.getFoodList()}">
+            <li th:text="${food.name}+' - ' + ${quantityView.toView(food.quantity)}"></li>
+        </ul>
+    </div>
+
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live kitchen recipes</title>
+    <script src="/js/htmx.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            background-color: #f2f2f2;
+            padding: 20px;
+            text-align: center;
+            width: 100%;
+        }
+        .content {
+            display: flex;
+            width: 100%;
+        }
+        .steps {
+            width: 60%;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        .ingredients {
+            width: 20%;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .foodStorage {
+            width: 20%;
+            padding: 20px;
+            background-color: #d4ddf6;
+        }
+        .step {
+            margin-bottom: 10px;
+        }
+
+        .notStarted {
+            background-color: white;
+        }
+        .recipeStarted {
+            font-size: large;
+            font-weight: bold;
+            color: #a8a80e;
+        }
+
+        .recipeCompleted {
+            font-size: large;
+            font-weight: bold;
+            color: #22800c;
+        }
+        .started {
+            background-color: #f1f1ec;
+            color: #a8a80e;
+        }
+        .completed {
+            background-color: #e7f4e4;
+        }
+        .failed {
+            background-color: #fde2e2;
+        }
+        .independent {
+            background-color: #e7f4e4;
+        }
+        .dependent {
+            background-color: #fde2e2;
+        }
+        .icon {
+            width: 20px;
+            height: 20px;
+            vertical-align: middle;
+        }
+        h1, h2 {
+            margin-top: 0;
+        }
+        img {
+            width: 100%;
+        }
+        .independent { background-color: #e7f4e4; }
+        .dependent { background-color: #fde2e2; }
+        .icon { width: 20px; height: 20px; vertical-align: middle; }
+        .play-icon {
+            width: 30px;
+            height: 30px;
+            vertical-align: middle;
+            color: green;
+        }
+        .play-button {
+            text-decoration: none;
+            color: #000;
+            font-family: Arial, sans-serif;
+        }
+    </style>
+
+</head>
+<body>
+
+<div class="header">
+    <h1>Live kitchen recipes</h1>
+</div>
+<div class="content">
+
+    <table>
+        <tr>
+            <th>Recipe name</th>
+            <th>Edit</th>
+            <th>Prepare</th>
+        </tr>
+        <tr class="allRecipes" th:each="recipe: ${allRecipes}">
+            <td th:text="${recipe.name}"></td>
+            <td><a th:attr="href='/editrecipe?recipeName='+${recipe.name}">Edit</a></td>
+            <td><a th:attr="href='/showrecipe/'+${recipe.id}">View</a></td>
+        </tr>
+    </table>
+
+
+
+</div>
+
+
+</body>
+</html>

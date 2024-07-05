@@ -1,0 +1,47 @@
+
+
+POST http://127.0.0.1:8080/recipes
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "new_recipe",
+  "steps": [
+    {
+      "name": "step1",
+      "time": 1000,
+      "dependsOnSteps": []
+    },
+    {
+      "name": "step2",
+      "time": 2000,
+      "dependsOnSteps": [
+      ]
+    },
+    {
+      "name": "step3",
+      "time": 3000,
+      "dependsOnSteps": [
+        "step1"
+      ]
+    },
+    {
+      "name": "step4",
+      "time": 1000,
+      "dependsOnSteps": [
+        "step3"
+      ]
+    }
+  ],
+  "ingredients": [
+    {
+      "name": "Spaghetti",
+      "quantity": 200
+    }
+  ]
+}
+
+####
+
+
+GET http://127.0.0.1:8080/recipes/new_recipe

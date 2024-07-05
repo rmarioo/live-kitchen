@@ -1,0 +1,40 @@
+@startuml live_kitchen_flow
+skinparam maxMessageSize 500
+
+actor "user" as user
+
+participant livekitchen [
+  =live-kitchen
+  ----
+  spring boot server
+]
+
+participant chefserver [
+  =chef-server
+  ----
+  node server
+]
+
+database "**Recipes**"  as recipes <<Mysql>>
+database "**Food Storage**" as foodstorage <<Mysql>>
+
+autonumber
+user -> livekitchen: prepare recipe id
+livekitchen -> recipes ++ : find recipe by id
+recipes --> livekitchen --: recipe  ( name , steps , ingredients )
+livekitchen -> foodstorage ++ : available food
+foodstorage --> livekitchen --: food in storage
+==Domain logic  ==
+livekitchen -> livekitchen: check enough food for ingredients
+livekitchen -> livekitchen: optimized steps = compute optimized recipe steps execution plan
+==Parallel steps execution ==
+
+livekitchen -> chefserver ++ : - prepare step y\n- prepare step x\n- prepare step z
+chefserver --> livekitchen --:
+
+== ==
+
+livekitchen --> user: steps executed &&  execution time
+
+
+@enduml
