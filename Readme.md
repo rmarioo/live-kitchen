@@ -1,5 +1,7 @@
 # Live kitchen 
 
+![Prepare recipe use case](./doc/live-kitchen.jpeg)
+
 The concept behind the live kitchen application is to create a kitchen environment where activities can be visualized in real-time.  
 Imagine a transparent glass wall through which you can observe the kitchen staff working, such as cutting bread or preparing soup.   
 This setup allows you to see how efficient and organized the work is.
