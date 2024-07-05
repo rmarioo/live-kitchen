@@ -31,3 +31,8 @@ build/
 
 ### VS Code ###
 .vscode/
+tmp_auto_checkpoint/*
+!tmp_auto_checkpoint/.gitignore
+
+tmp_manual_checkpoint/*
+!tmp_manual_checkpoint/.gitignore
