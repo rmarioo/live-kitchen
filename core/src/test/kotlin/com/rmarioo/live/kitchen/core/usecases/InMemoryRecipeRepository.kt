@@ -3,27 +3,29 @@ package com.rmarioo.live.kitchen.core.usecases
 import com.rmarioo.live.kitchen.core.model.Recipe
 import com.rmarioo.live.kitchen.core.port.RecipeRepository
 
-class InMemoryRecipeRepository(private val recipes: MutableList<Recipe>) : RecipeRepository {
+class InMemoryRecipeRepository(private val recipes: MutableMap<Int,Recipe>) : RecipeRepository {
     override fun findRecipeById(id: Int): Recipe? {
-        return null
+        return recipes[id]
     }
 
 
     override fun findRecipeByName(name: String): Recipe? {
-       return recipes.firstOrNull { recipe: Recipe -> recipe.name == name }
+       return recipes.values.firstOrNull { recipe: Recipe -> recipe.name == name }
     }
 
     override fun add(recipe: Recipe): Int {
-        recipes.add(recipe)
-        return 1
+
+        val newId = if (recipes.keys.isEmpty()) 1 else recipes.keys.max() + 1
+        save(recipe,newId)
+        return newId
     }
 
     override fun save(recipe: Recipe, recipeId: Int) {
-        TODO("Not yet implemented")
+        recipes[recipeId] = recipe
     }
 
     override fun deleteRecipeById(recipeId: Int) {
-        TODO("Not yet implemented")
+        recipes.remove(recipeId)
     }
 
 }

@@ -28,29 +28,6 @@ class PrepareRecipe(
     }
 
 
-    fun prepare(recipe: Recipe): RecipeResult {
-
-        val foodStorage = foodStorageRepository.find()
-
-        recipe.ingredients.food.firstOrNull { !foodStorage.enoughFood(it) }
-            ?.let { return NotEnoughFood(it.name) }
-
-        parallelStepsFrom(recipe.steps).forEach { parallelStep ->
-
-            measureTime {
-                runBlocking(Dispatchers.IO) {
-                    parallelStep.map { step: Step ->
-                        async {
-                            chefService.execute(step)
-                        }
-                    }.awaitAll()
-                }
-            }
-        }
-
-        return CompletedDish(Dish(name = recipe.name))
-    }
-
     private fun startRecipePreparation(recipe: Recipe, requestId: String) {
 
         val foodStorage = foodStorageRepository.find()

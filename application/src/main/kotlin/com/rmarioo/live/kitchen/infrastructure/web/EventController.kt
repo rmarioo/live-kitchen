@@ -39,7 +39,7 @@ class EventController(val prepareRecipe: PrepareRecipe) {
                 is StepCompleted -> "- completed step ${it.name}"
                 is NotEnoughFoodInStorage -> stepTemplate.replace("__step__", "KO - not enough ${it.name}").replace("__status_class__","failed")
                 is RecipeNotFound -> "not found recipe ${it.name}"
-                is RecipeError -> recipeTemplate.replace("__step__","KO ${it.error} ").replace("__status_class__","failed")
+                is RecipeError -> recipeTemplate.replace("__step__","KO ${it.name} ").replace("__status_class__","failed")
             }
         }
 
