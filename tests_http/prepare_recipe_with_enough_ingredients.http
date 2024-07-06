@@ -1,5 +1,5 @@
 
-POST http://127.0.0.1:8080/recipes/prepare/Spaghetti_Bolognese
+POST http://127.0.0.1:8080/recipes/prepare?requestId=4&recipeId=2
 Content-Type: application/json
 Accept: application/json
 ###

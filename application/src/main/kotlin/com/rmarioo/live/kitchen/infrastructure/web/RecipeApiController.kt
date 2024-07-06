@@ -1,20 +1,19 @@
 package com.rmarioo.live.kitchen.infrastructure.web
 
 
-import com.rmarioo.live.kitchen.core.model.CompletedDish
-import com.rmarioo.live.kitchen.core.model.NotEnoughFood
-import com.rmarioo.live.kitchen.core.model.RecipeNotFoundResult
+import com.rmarioo.live.kitchen.core.model.KitchenEvent
+import com.rmarioo.live.kitchen.core.model.RecipeError
+import com.rmarioo.live.kitchen.core.model.RecipeUpdated
 import com.rmarioo.live.kitchen.core.port.RecipeRepository
 import com.rmarioo.live.kitchen.core.usecases.PrepareRecipe
-import com.rmarioo.live.kitchen.infrastructure.web.model.Dish
+import com.rmarioo.live.kitchen.infrastructure.web.model.PrepareRecipeResult
+import com.rmarioo.live.kitchen.infrastructure.web.model.Event
 import com.rmarioo.live.kitchen.infrastructure.web.model.Recipe
-import org.slf4j.LoggerFactory
-import org.springframework.http.HttpStatus.BAD_REQUEST
+import com.rmarioo.live.kitchen.infrastructure.web.model.Status
+import com.rmarioo.live.kitchen.infrastructure.web.model.Status.DONE
 import org.springframework.http.ResponseEntity
 import org.springframework.http.ResponseEntity.ok
-import org.springframework.http.ResponseEntity.status
 import org.springframework.web.bind.annotation.*
-import kotlin.time.measureTimedValue
 
 
 @RestController
@@ -25,29 +24,29 @@ class RecipeApiController(
     val prepareRecipe: PrepareRecipe
 ) {
 
-    private val log = LoggerFactory.getLogger(this::class.java)
+    @PostMapping("/prepare")
+    fun prepareRecipe(@RequestParam requestId: String, @RequestParam recipeId: Int): ResponseEntity<PrepareRecipeResult> {
 
+        val kitchenEvents: List<KitchenEvent> = prepareRecipe.prepareAsync(requestId, recipeId)
+        val status = statusFrom(kitchenEvents)
 
-    @PostMapping("/prepare/{recipeId}")
-    fun prepareRecipe(@PathVariable recipeId: Int): ResponseEntity<*> {
-
-        val recipe = recipeRepository.findRecipeById(recipeId) ?: return status(BAD_REQUEST).body(recipeNotFoundMessage(RecipeNotFoundResult("$recipeId")))
-        log.info("tring to prepare recipe ${recipe.name}")
-        val (recipeResult, duration) = measureTimedValue { prepareRecipe.prepare(recipe) }
-
-        return when (recipeResult) {
-            is CompletedDish ->  ok(Dish(recipeResult.dish.name)).also { log.info("successfully prepared ${recipeResult.dish.name}! in ${duration.inWholeMilliseconds} milliseconds") }
-            is NotEnoughFood ->  status(BAD_REQUEST).body(notEnoughFood(recipeResult)).also { log.error(notEnoughFood(recipeResult)); }
-            is RecipeNotFoundResult ->  status(BAD_REQUEST).body(recipeNotFoundMessage(recipeResult)).also { log.error(recipeNotFoundMessage(recipeResult)); }
-        }
+        return ok(PrepareRecipeResult(status,eventsFrom(kitchenEvents)) )
     }
 
-    private fun notEnoughFood(recipeResult: NotEnoughFood) =
-        "not enough food in storage missing ${recipeResult.name}"
+    private fun statusFrom(kitchenEvents: List<KitchenEvent>): Status {
 
-    private fun recipeNotFoundMessage(recipeResult: RecipeNotFoundResult) =
-        "recipe not found ${recipeResult.name}"
+        return if (kitchenEvents.any { it is RecipeUpdated })
+            DONE
+        else if (kitchenEvents.any { it is RecipeError })
+            Status.ERROR
+        else
+            Status.IN_PROGRESS
 
+    }
+
+    private fun eventsFrom(kitchenEvents: List<KitchenEvent>): List<Event> {
+        return kitchenEvents.map { Event(it.javaClass.simpleName,it.name) }
+    }
 
     @PostMapping
     fun createRecipe(@RequestBody recipe: Recipe): String {
@@ -57,7 +56,7 @@ class RecipeApiController(
 
 
     @GetMapping("/{id}")
-    fun getRecipeByName(@PathVariable id: Int): Recipe? {
+    fun getRecipeById(@PathVariable id: Int): Recipe? {
         val recipe  = recipeRepository.findRecipeById(id) ?: return null
        return recipeAdapter.toWeb(recipe)
 

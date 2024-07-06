@@ -10,7 +10,8 @@ class InMemoryRecipeRepositoryTest {
 
     @Test
     fun `return null if no recipe is found`() {
-        val underTest = InMemoryRecipeRepository(mutableListOf())
+
+        val underTest = InMemoryRecipeRepository(mutableMapOf())
         val recipe: Recipe? = underTest.findRecipeByName("a recipe")
 
         assertThat(recipe).isNull()
@@ -18,7 +19,7 @@ class InMemoryRecipeRepositoryTest {
 
     @Test
     fun `add recipe`() {
-        val underTest = InMemoryRecipeRepository(mutableListOf())
+        val underTest = InMemoryRecipeRepository(mutableMapOf())
 
         underTest.add(recipe)
 
@@ -28,7 +29,7 @@ class InMemoryRecipeRepositoryTest {
 
     @Test
     fun `found a previously added recipe`() {
-        val underTest = InMemoryRecipeRepository(mutableListOf(recipe))
+        val underTest = InMemoryRecipeRepository(mutableMapOf(1 to recipe))
         val recipeFound: Recipe? = underTest.findRecipeByName(recipe.name)
 
         assertThat(recipeFound).isEqualTo(recipe)

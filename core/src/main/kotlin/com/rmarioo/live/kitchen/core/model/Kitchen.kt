@@ -55,15 +55,15 @@ class Kitchen(private var events: List<KitchenEvent> = listOf()) {
 }
 
 
-sealed class KitchenEvent { abstract val requestId: String;abstract val creationTime: Long}
-data class RecipeStarted(override val requestId: String, val name: String, override val creationTime: Long): KitchenEvent()
-data class RecipeUpdated(override val requestId: String, val name: String, override val creationTime: Long,val completionTime: Long): KitchenEvent()
-data class RecipeCompleted(override val requestId: String, val name: String, override val creationTime: Long): KitchenEvent()
-data class RecipeError(override val requestId: String, val error: String, override val creationTime: Long): KitchenEvent()
+sealed class KitchenEvent { abstract val requestId: String; abstract val name: String; abstract val creationTime: Long}
+data class RecipeStarted(override val requestId: String, override val name: String, override val creationTime: Long): KitchenEvent()
+data class RecipeUpdated(override val requestId: String, override val name: String, override val creationTime: Long, val completionTime: Long): KitchenEvent()
+data class RecipeCompleted(override val requestId: String, override val name: String, override val creationTime: Long): KitchenEvent()
+data class RecipeError(override val requestId: String, override val name: String, override val creationTime: Long): KitchenEvent()
 
-data class StepStarted(override val requestId: String, val name: String, override val creationTime: Long): KitchenEvent()
-data class StepCompleted(override val requestId: String, val name: String, override val creationTime: Long): KitchenEvent()
-data class StepUpdated(override val requestId: String, val name: String, override val creationTime: Long): KitchenEvent()
+data class StepStarted(override val requestId: String, override val name: String, override val creationTime: Long): KitchenEvent()
+data class StepCompleted(override val requestId: String, override val name: String, override val creationTime: Long): KitchenEvent()
+data class StepUpdated(override val requestId: String, override val name: String, override val creationTime: Long): KitchenEvent()
 
-data class NotEnoughFoodInStorage(override val requestId: String, val name: String, override val creationTime: Long): KitchenEvent()
-data class RecipeNotFound(override val requestId: String, val name: String, override val creationTime: Long): KitchenEvent()
+data class NotEnoughFoodInStorage(override val requestId: String, override val name: String, override val creationTime: Long): KitchenEvent()
+data class RecipeNotFound(override val requestId: String, override val name: String, override val creationTime: Long): KitchenEvent()
