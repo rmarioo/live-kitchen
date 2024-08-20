@@ -5,6 +5,7 @@ import com.rmarioo.live.kitchen.core.port.ChefService
 import org.slf4j.LoggerFactory
 import org.springframework.http.ResponseEntity
 import org.springframework.web.client.RestOperations
+import java.io.Serializable
 
 class RemoteChefService(val restOperations: RestOperations,val chefServerHost : String): ChefService {
 
@@ -25,5 +26,5 @@ class RemoteChefService(val restOperations: RestOperations,val chefServerHost : 
 
     private fun normalize(name: String) = name.lowercase().replace(",","").replace(" ", "_")
 
-    data class DishResponse(val preparedBy: String,val description: String,val delay: Int )
+    data class DishResponse(val preparedBy: String,val description: String,val delay: Int ): Serializable
 }
