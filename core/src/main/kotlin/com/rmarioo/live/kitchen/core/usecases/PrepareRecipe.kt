@@ -5,6 +5,7 @@ import com.rmarioo.live.kitchen.core.port.FoodStorageRepository
 import com.rmarioo.live.kitchen.core.port.ChefService
 import com.rmarioo.live.kitchen.core.port.RecipeRepository
 import kotlinx.coroutines.*
+import java.util.concurrent.Executors
 import kotlin.time.measureTime
 
 class PrepareRecipe(
@@ -14,12 +15,14 @@ class PrepareRecipe(
     private val kitchen: Kitchen
 ) {
 
+    private val virtualThreadDispatcher = Executors.newVirtualThreadPerTaskExecutor().asCoroutineDispatcher()
+
     fun prepareAsync(requestId: String,recipeId: Int): List<KitchenEvent> {
 
         val recipe = recipeRepository.findRecipeById(recipeId) ?: return listOf()
         if (!kitchen.hasRequest(requestId)) {
             kitchen.add(RecipeStarted(requestId, recipe.name,System.currentTimeMillis()))
-            CoroutineScope(Dispatchers.IO).launch {
+            CoroutineScope(virtualThreadDispatcher).launch {
                 startRecipePreparation(recipe, requestId)
             }
         }
@@ -38,7 +41,7 @@ class PrepareRecipe(
         parallelStepsFrom(recipe.steps).forEach { parallelStep ->
 
             measureTime {
-                runBlocking(Dispatchers.IO) {
+                runBlocking(virtualThreadDispatcher) {
                     try {
                         parallelStep.map { step: Step -> async {
 
@@ -86,6 +89,8 @@ class PrepareRecipe(
     }
 
 }
+
+
 
 
 
