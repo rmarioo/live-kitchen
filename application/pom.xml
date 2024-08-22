@@ -98,11 +98,6 @@
             <plugin>
                 <groupId>org.graalvm.buildtools</groupId>
                 <artifactId>native-maven-plugin</artifactId>
-                <configuration>
-                    <mainClass>
-                        com.rmarioo.live.kitchen.LiveKitchenApplicationKt
-                    </mainClass>
-                </configuration>
             </plugin>
         </plugins>
     </build>

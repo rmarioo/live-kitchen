@@ -89,8 +89,9 @@
                     </configuration>
                     <executions>
                         <execution>
+                            <id>process-aot</id>
                             <goals>
-                                <goal>repackage</goal>
+                                <goal>process-aot</goal>
                             </goals>
                         </execution>
                     </executions>
@@ -115,7 +116,6 @@
                         </args>
                         <compilerPlugins>
                             <plugin>spring</plugin>
-<!--                            <plugin>jpa</plugin>-->
                             <plugin>all-open</plugin>
                             <plugin>no-arg</plugin>
                         </compilerPlugins>
