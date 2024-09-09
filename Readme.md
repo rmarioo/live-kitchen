@@ -40,7 +40,19 @@ This application aims to be a **pseudo-realistic application** by incorporating 
 1. build image node-chef-server by executing node-chef-server/build.sh
 2. run container executing node-chef-server/run.sh
 
+## make sure to use a jdk compatible with CRaC
+- sdk default java 22.0.1.crac-zulu and use the same in intellj 
+
 # Run the application 
 1. run the application LiveKitchenApplication
+
+# Run the application from a manual checkpoint
+1. remove all files in tmp_manual_checkpoint folder rathen than .gitignore  running  .**/clean_tmp_manual_checkpoint_folder.sh**
+2. run **./start-manual-crac.sh** and note the application pid
+3. on another terminal run **./create-manual-checkpoint.sh** pid ( the one noted above )
+4. run **./restore-manual-crac.sh** to start the application from that checkpoint. Note the faster startup time and less logs
+
+# Play with application
 2. open browser at http://localhost:8080/allrecipes and choose if to edit or prepare recipes from this page 
+
 

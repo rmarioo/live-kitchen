@@ -36,3 +36,4 @@ tmp_auto_checkpoint/*
 
 tmp_manual_checkpoint/*
 !tmp_manual_checkpoint/.gitignore
+/stats-restore
