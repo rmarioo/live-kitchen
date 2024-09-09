@@ -39,8 +39,13 @@ This application aims to be a **pseudo-realistic application** by incorporating 
 
 1. build image node-chef-server by executing node-chef-server/build.sh
 2. run container executing node-chef-server/run.sh
+3. ( optional ) in case of error _The container name "/chef-server" is already in use_ execute script node-chef-server/stop_and_remove_container.sh 
 
-# Run the application 
-1. run the application LiveKitchenApplication
-2. open browser at http://localhost:8080/allrecipes and choose if to edit or prepare recipes from this page 
+# Run the application on usual jvm 
+1. make sure to use graal vm jdk ( example  **sdk default java 22.0.2-graal** )
+2. run the application LiveKitchenApplication or **start.sh** to start application with just in time compilation
 
+# Run native executable application
+1. make sure to use graal vm jdk ( example  **sdk default java 22.0.2-graal** )
+2. create native executable with **mvn clean package -Pnative** or execute script **./create_native_executable.sh** 
+3. start native executable appication under application/target/application or execute script .**/start_native_executable.sh**
