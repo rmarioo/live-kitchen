@@ -94,15 +94,11 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>${spring.boot.version}</version>
-                <configuration>
-                    <mainClass>com.rmarioo.live.kitchen.LiveKitchenApplicationKt</mainClass>
-                    <layout>JAR</layout>
-                </configuration>
                 <executions>
                     <execution>
+                        <id>process-aot</id>
                         <goals>
-                            <goal>repackage</goal>
+                            <goal>process-aot</goal>
                         </goals>
                     </execution>
                 </executions>
