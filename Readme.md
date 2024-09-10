@@ -41,6 +41,15 @@ This application aims to be a **pseudo-realistic application** by incorporating 
 2. run container executing node-chef-server/run.sh
 
 # Run the application 
-1. run the application LiveKitchenApplication
-2. open browser at http://localhost:8080/allrecipes and choose if to edit or prepare recipes from this page 
+run the application LiveKitchenApplication or use ./start.sh
+
+# Run the application with cds
+1. create_application_with_cds.sh
+2. run_application_with_cds.sh.sh
+
+# Run the application with cds and spring aot
+1. create_application_with_cds_and_aot.sh
+2. run_application_with_cds_and_aot.sh
+
+open browser at http://localhost:8080/allrecipes and choose if to edit or prepare recipes from this page 
 

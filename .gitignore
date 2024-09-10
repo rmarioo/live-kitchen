@@ -31,3 +31,5 @@ build/
 
 ### VS Code ###
 .vscode/
+/application.jsa
+/application-1.0.0/
