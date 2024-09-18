@@ -22,7 +22,18 @@ This application aims to be a **pseudo-realistic application** by incorporating 
   * The recipe preparation fails if there is not enought food in the storage for each required ingredient
 * **Use of a real remote database (Mysql)**.
 * **HTTP calls to simulate the preparation steps** of recipes.
-* 
+  
+  
+  
+
+![Example edit recipe preparation](./doc/edit_recipe_example.png)
+
+
+#   
+  
+  
+
+  
 ![Example of recipe preparation](./doc/example_of_recipe_preparation.png)
 # flow diagram  
 
