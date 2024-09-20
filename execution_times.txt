@@ -1,0 +1,5 @@
+
+just run                             -->  startup 2.146 seconds  memory  297
+run with + unpacked jars             -->  startup 1.751 seconds  memory  279.9
+run with + unpacked jars + cds       -->  startup 1.196 seconds  memory  264.74
+run with + unpacked jars + AOT + cds -->  startup 0.965 seconds  memory  246.27
