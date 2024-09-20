@@ -1,0 +1,34 @@
+Execution time comparison
+
+just run         ---> startup 2.578 seconds memory 248
+run executable   ---> startup 0.145 seconds memory 151
+
+Compilation details:
+
+========================================================================================================================
+GraalVM Native Image: Generating 'application' (executable)...
+========================================================================================================================
+[1/8] Initializing...                                                                                    (4.4s @ 0.22GB)
+[2/8] Performing analysis...  [******]                                                                  (33.6s @ 2.83GB)
+[3/8] Building universe...                                                                               (7.2s @ 4.08GB)
+[4/8] Parsing methods...      [***]                                                                     (10.0s @ 3.35GB)
+[5/8] Inlining methods...     [****]                                                                     (1.6s @ 2.94GB)
+[6/8] Compiling methods...    [********]                                                                (64.3s @ 2.96GB)
+[7/8] Laying out methods...   [***]                                                                      (9.7s @ 2.73GB)
+[8/8] Creating image...       [***]                                                                      (7.1s @ 3.16GB)
+
+Recommendations:
+ PGO:  Use Profile-Guided Optimizations ('--pgo') for improved throughput.
+ HEAP: Set max heap for improved and more predictable memory usage.
+ CPU:  Enable more CPU features with '-march=native' for improved performance.
+ QBM:  Use the quick build mode ('-Ob') to speed up builds during development.
+
+[INFO] live-kitchen ....................................... SUCCESS [  0.180 s]
+[INFO] core ............................................... SUCCESS [  6.504 s]
+[INFO] application ........................................ SUCCESS [02:34 min]
+
+
+
+
+
+
