@@ -1,0 +1,4 @@
+Execution time comparison
+
+just run         ---> startup 2.11 seconds memory 322
+run executable   ---> startup 0.165 seconds memory 155.9
