@@ -3,3 +3,12 @@ just run                             -->  startup 2.146 seconds  memory  297
 run with + unpacked jars             -->  startup 1.751 seconds  memory  279.9
 run with + unpacked jars + cds       -->  startup 1.196 seconds  memory  264.74
 run with + unpacked jars + AOT + cds -->  startup 0.965 seconds  memory  246.27
+
+docker container
+
+just run                                                    -->  startup 2.169 seconds  memory  220
+run with + unpacked jars                                    -->  startup 1.674 seconds  memory  193
+run with + unpacked jars + cds ( without jar layers )       -->  startup 1.237 seconds  memory  188
+run with + unpacked jars + AOT + cds ( with jar layers    ) -->  startup 1.408 seconds  memory  216
+run with + unpacked jars + AOT + cds ( without jar layers ) -->  startup 0.967 seconds  memory  167
+
