@@ -1,0 +1,1 @@
+/opt/application_executable_ok
