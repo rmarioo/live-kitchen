@@ -32,3 +32,5 @@ build/
 ### VS Code ###
 .vscode/
 /stats-restore
+/application-1.0.0
+/application.jsa
